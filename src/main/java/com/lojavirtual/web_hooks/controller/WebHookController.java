@@ -2,6 +2,7 @@ package com.lojavirtual.web_hooks.controller;
 
 import com.lojavirtual.web_hooks.dto.WebhookStripeDTO;
 import com.lojavirtual.web_hooks.service.VendasService;
+import com.lojavirtual.web_hooks.service.WebhookService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,12 @@ import java.util.Map;
 public class WebHookController {
     @Autowired
     private VendasService vendasService;
+    @Autowired
+    private WebhookService webhookService;
 
     @PostMapping("/stripe")
     @Transactional
     public ResponseEntity<String> receberWebhook(@RequestBody WebhookStripeDTO payload) {
-        var vendaId = payload.data().object().metadata().get("venda");
-        System.out.println("webhook recebido " + vendaId);
-        vendasService.confirmarPagamento(vendaId);
-
-        return ResponseEntity.ok().body("Webhook recebido com sucesso!");
+        return webhookService.receberWebhook(payload);
     }
 }
