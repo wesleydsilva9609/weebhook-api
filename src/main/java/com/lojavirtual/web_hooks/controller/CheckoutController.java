@@ -3,14 +3,12 @@ package com.lojavirtual.web_hooks.controller;
 
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.service.CheckoutService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import com.stripe.model.checkout.Session;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.HashMap;
@@ -21,7 +19,19 @@ import java.util.Map;
 @RequestMapping("/checkout")
 public class CheckoutController {
 
+    @GetMapping("/success")
+    public ResponseEntity<String> checkoutSuccess() {
+        return new ResponseEntity<>("Checkout success", HttpStatus.OK);
+    }
+
+    @GetMapping("/cancel")
+    public ResponseEntity<String> cancelCheckout() {
+        return new ResponseEntity<>("Checkout cancelled", HttpStatus.OK);
+    }
+
+
     @PostMapping("/create-session/{vendaid}")
+    @Transactional
     public ResponseEntity<Map<String, Object>> criando(@PathVariable String vendaid) {
         try {
             // Parâmetros da sessão de checkout
