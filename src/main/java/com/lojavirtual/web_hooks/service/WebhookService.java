@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,4 +60,20 @@ public class WebhookService {
         return ResponseEntity.ok().body("Evento ignorado");
     }
 
+    public ResponseEntity<String> testeWeb(Map<String, Object> payload){
+        try {
+            Map<String,Object> data = (Map<String, Object>) payload.get("data");
+            Map<String, Object> objectMap = (Map<String, Object>) data.get("object");
+            Map<String,Object> metadata = (Map<String, Object>) objectMap.get("metadata");
+
+            String vendaId = (String) metadata.get("venda");
+
+            vendasService.confirmarPagamento(vendaId);
+
+            return ResponseEntity.ok().body("Webhook enviado com sucesso");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Erro ao enviar webhook");
+        }
+    }
 }

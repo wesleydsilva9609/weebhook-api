@@ -8,10 +8,14 @@ public record WebhookStripeDTO(
         Data data) {
     public record Data(
             ObjectData object
-    ) {}
+    ) {
+
+    }
 
     public record ObjectData(
             Map<String, String> metadata
-    ) {}
+    ) {
+
+    }
 }
 

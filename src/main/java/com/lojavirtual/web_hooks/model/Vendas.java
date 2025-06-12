@@ -30,6 +30,7 @@ public class Vendas {
     public Vendas(DadosCadastroVenda dadosCadastroVenda) {
         this.id = dadosCadastroVenda.id();
         this.valor = dadosCadastroVenda.valor();
+        this.status = "Pendente";
     }
 
 

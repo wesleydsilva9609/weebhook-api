@@ -28,4 +28,9 @@ public class WebHookController {
     public ResponseEntity<String> receberWebhook(HttpServletRequest request) throws IOException {
         return webhookService.receberWebhook(request);
     }
+
+    @PostMapping("/teste")
+    public ResponseEntity<String> testewebHook(@RequestBody Map<String, Object> payload){
+        return webhookService.testeWeb(payload);
+    }
 }
