@@ -90,8 +90,8 @@ POST  http://localhost:8080/checkout/create-session/5
   ```
 json
 {
-  "id": "cs_test_...",
-  "url": "https://checkout.stripe.com/..."
+       "id": "cs_test_...",
+       "url": "https://checkout.stripe.com/..."
 }
 ``` 
 
